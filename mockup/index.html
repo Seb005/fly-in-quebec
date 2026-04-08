@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fly-in Québec — Travail FIFO dans les mines du Nord</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ========== COLORS ========== */
+    :root {
+      --primary: #0f4c81;
+      --primary-dark: #0a3259;
+      --primary-light: #1a6bb5;
+      --accent: #e8a838;
+      --accent-dark: #d49520;
+      --accent-light: #f5c563;
+      --bg-light: #f7f9fc;
+      --bg-dark: #0f1923;
+      --text: #1a1a2e;
+      --text-muted: #5a6577;
+      --text-light: #8892a4;
+      --border: #e2e8f0;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-lg: 20px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 6px rgba(0,0,0,0.05), 0 10px 40px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    /* ========== CONTAINER ========== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ========== HEADER ========== */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      height: 72px;
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 800; font-size: 1.3rem; color: var(--primary);
+    }
+    .logo-icon {
+      width: 42px; height: 42px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-icon svg { width: 26px; height: 26px; }
+    .logo span { letter-spacing: -0.5px; }
+    .logo .logo-qc { color: var(--accent); }
+
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a {
+      font-size: 0.92rem; font-weight: 500; color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--primary); }
+    .nav-cta {
+      background: var(--primary); color: #fff !important;
+      padding: 10px 22px; border-radius: var(--radius-sm);
+      font-weight: 600; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--primary-dark); }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+      margin-top: 72px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(15,28,35,0.82) 0%, rgba(15,76,129,0.65) 50%, rgba(15,28,35,0.75) 100%),
+        url('https://images.pexels.com/photos/36236254/pexels-photo-36236254/free-photo-of-aerial-view-of-industrial-open-pit-mining-site.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 720px;
+      padding: 80px 0;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 500; color: var(--accent-light);
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 900; color: #fff;
+      line-height: 1.1; letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+    .hero h1 .highlight {
+      color: var(--accent);
+      position: relative;
+    }
+    .hero p {
+      font-size: 1.2rem; color: rgba(255,255,255,0.8);
+      line-height: 1.7; margin-bottom: 40px;
+      max-width: 580px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 600; cursor: pointer;
+      border: none; transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--bg-dark);
+    }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(232,168,56,0.3); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1); color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+    .btn svg { width: 20px; height: 20px; }
+
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .hero-stat-value {
+      font-size: 2rem; font-weight: 800; color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .hero-stat-label {
+      font-size: 0.85rem; color: rgba(255,255,255,0.55);
+      margin-top: 4px;
+    }
+
+    /* ========== SECTION: LIVE JOBS TICKER ========== */
+    .ticker-section {
+      background: var(--bg-dark);
+      padding: 16px 0;
+      overflow: hidden;
+    }
+    .ticker-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(34,197,94,0.15);
+      color: var(--success);
+      padding: 4px 12px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-right: 24px;
+      flex-shrink: 0;
+    }
+    .ticker-track {
+      display: flex; align-items: center;
+      animation: ticker 40s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 0 32px;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+    .ticker-item strong { color: #fff; font-weight: 600; }
+    .ticker-item .ticker-salary {
+      color: var(--accent); font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+    .ticker-dot {
+      width: 4px; height: 4px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 50%;
+    }
+
+    /* ========== SECTION: FEATURES ========== */
+    .features {
+      padding: 100px 0;
+      background: var(--bg-light);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.8rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--primary-light);
+      margin-bottom: 16px;
+    }
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800; letter-spacing: -1px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 1.1rem; color: var(--text-muted);
+      max-width: 600px; margin: 0 auto;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    .feature-icon.blue { background: #e0f2fe; }
+    .feature-icon.amber { background: #fef3c7; }
+    .feature-icon.green { background: #dcfce7; }
+    .feature-icon.purple { background: #f3e8ff; }
+    .feature-icon.red { background: #fee2e2; }
+    .feature-icon.teal { background: #ccfbf1; }
+    .feature-card h3 {
+      font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;
+      color: var(--text);
+    }
+    .feature-card p {
+      font-size: 0.93rem; color: var(--text-muted); line-height: 1.6;
+    }
+
+    /* ========== SECTION: EMPLOYERS ========== */
+    .employers {
+      padding: 100px 0;
+    }
+    .employer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .employer-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .employer-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+    .employer-logo {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: var(--bg-light);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      font-weight: 800; font-size: 1.1rem; color: var(--primary);
+    }
+    .employer-card h4 {
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 4px;
+    }
+    .employer-card .employer-mineral {
+      font-size: 0.8rem; color: var(--text-light); margin-bottom: 12px;
+    }
+    .employer-meta {
+      display: flex; flex-direction: column; gap: 6px;
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+    .employer-meta span {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+
+    /* ========== SECTION: JOBS PREVIEW ========== */
+    .jobs-preview {
+      padding: 100px 0;
+      background: var(--bg-light);
+    }
+    .jobs-list { display: flex; flex-direction: column; gap: 12px; }
+    .job-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .job-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+    .job-left { display: flex; align-items: center; gap: 20px; }
+    .job-company-badge {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--bg-light);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.85rem; color: var(--primary);
+      flex-shrink: 0;
+    }
+    .job-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .job-info .job-company { font-size: 0.88rem; color: var(--text-muted); }
+    .job-tags { display: flex; gap: 8px; margin-top: 8px; }
+    .job-tag {
+      font-size: 0.75rem; font-weight: 500;
+      padding: 3px 10px; border-radius: 100px;
+      background: var(--bg-light); color: var(--text-muted);
+    }
+    .job-tag.rotation { background: #e0f2fe; color: #0369a1; }
+    .job-tag.location { background: #fef3c7; color: #92400e; }
+    .job-right { text-align: right; flex-shrink: 0; }
+    .job-salary {
+      font-size: 1.05rem; font-weight: 700; color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .job-date { font-size: 0.8rem; color: var(--text-light); margin-top: 4px; }
+    .job-new {
+      display: inline-block;
+      background: #dcfce7; color: #15803d;
+      font-size: 0.72rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 100px;
+      margin-left: 8px;
+    }
+
+    /* ========== SECTION: NEWSLETTER ========== */
+    .newsletter {
+      padding: 80px 0;
+      background: var(--primary);
+      color: #fff;
+    }
+    .newsletter-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 48px;
+    }
+    .newsletter-text h2 {
+      font-size: 2rem; font-weight: 800; margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .newsletter-text p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.75);
+      max-width: 480px;
+    }
+    .newsletter-form {
+      display: flex; gap: 12px; flex-shrink: 0;
+    }
+    .newsletter-form input {
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.1);
+      color: #fff; font-size: 1rem;
+      width: 320px;
+      outline: none;
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.5); }
+    .newsletter-form input:focus { border-color: var(--accent); }
+    .newsletter-form button {
+      padding: 14px 28px;
+      background: var(--accent); color: var(--bg-dark);
+      border: none; border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: var(--accent-light); }
+
+    /* ========== SECTION: TRADES ========== */
+    .trades {
+      padding: 100px 0;
+    }
+    .trades-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    .trade-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .trade-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+    .trade-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .trade-card h4 {
+      font-size: 0.88rem; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .trade-salary {
+      font-size: 0.82rem; font-weight: 600; color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .trade-demand {
+      font-size: 0.75rem; color: var(--success); font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* ========== SECTION: CTA ========== */
+    .cta-section {
+      padding: 120px 0;
+      background:
+        linear-gradient(135deg, var(--bg-dark) 0%, var(--primary-dark) 100%);
+      text-align: center;
+      color: #fff;
+    }
+    .cta-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .cta-section p {
+      font-size: 1.15rem; color: rgba(255,255,255,0.65);
+      max-width: 520px; margin: 0 auto 40px;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,0.5);
+      padding: 64px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo { margin-bottom: 16px; }
+    .footer-brand .logo span { color: #fff; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 {
+      font-size: 0.82rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: rgba(255,255,255,0.3); margin-bottom: 20px;
+    }
+    .footer-col a {
+      display: block; font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      padding: 6px 0; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.82rem;
+    }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .footer-social a:hover { background: rgba(255,255,255,0.12); }
+    .footer-social svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.5); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .employer-grid { grid-template-columns: repeat(2, 1fr); }
+      .trades-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .hero { min-height: 85vh; }
+      .hero-stats { flex-direction: column; gap: 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .employer-grid { grid-template-columns: 1fr; }
+      .trades-grid { grid-template-columns: repeat(2, 1fr); }
+      .newsletter-inner { flex-direction: column; text-align: center; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input { width: 100%; }
+      .job-card { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .job-right { text-align: left; }
+      nav { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ========== MOCK BADGE ========== */
+    .mockup-badge {
+      position: fixed; bottom: 20px; right: 20px;
+      background: var(--bg-dark); color: rgba(255,255,255,0.6);
+      padding: 10px 18px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 500;
+      z-index: 200; box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOCKUP BADGE -->
+  <div class="mockup-badge">MAQUETTE v1.0 — Fly-in Québec</div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#fff" opacity="0.9"/>
+            <path d="M2 17l10 5 10-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+            <path d="M2 12l10 5 10-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+            <path d="M9 6l6 3-6 3" fill="#e8a838"/>
+          </svg>
+        </div>
+        <span>Fly-in <span class="logo-qc">Québec</span></span>
+      </a>
+      <nav>
+        <a href="#emplois">Emplois</a>
+        <a href="#employeurs">Employeurs</a>
+        <a href="#metiers">Métiers</a>
+        <a href="#projets">Projets</a>
+        <a href="#">Blog</a>
+        <a href="#">FAQ</a>
+        <a href="#newsletter" class="nav-cta">S'inscrire</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        247 offres actives aujourd'hui
+      </div>
+      <h1>
+        Tout ce que vous devez savoir avant de <span class="highlight">monter dans l'avion.</span>
+      </h1>
+      <p>
+        Le premier portail francophone dédié au travail Fly-in/Fly-out dans les mines du Nord du Québec. Offres d'emploi en temps réel, conditions de camp, guides pratiques.
+      </p>
+      <div class="hero-actions">
+        <a href="#emplois" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          Voir les offres
+        </a>
+        <a href="#metiers" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Guide des métiers
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value">14 358</div>
+          <div class="hero-stat-label">Postes à combler d'ici 2028</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">$95K</div>
+          <div class="hero-stat-label">Salaire moyen FIFO</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">14/14</div>
+          <div class="hero-stat-label">Rotation typique</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE JOBS TICKER -->
+  <section class="ticker-section">
+    <div style="display:flex;align-items:center;overflow:hidden;">
+      <div class="ticker-track">
+        <span class="ticker-label"><span class="hero-badge-dot"></span> En direct</span>
+        <span class="ticker-item"><strong>Mécanicien industriel</strong> Raglan (Glencore) <span class="ticker-salary">$105K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Opérateur d'équipement lourd</strong> Bloom Lake <span class="ticker-salary">$92K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Électricien</strong> Éléonore (Dhilmar) <span class="ticker-salary">$98K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Soudeur CWB</strong> Windfall (Gold Fields) <span class="ticker-salary">$88K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Mineur de fond</strong> Canadian Malartic <span class="ticker-salary">$110K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Géologue</strong> Whabouchi (Nemaska) <span class="ticker-salary">$115K</span></span>
+        <span class="ticker-dot"></span>
+        <!-- Duplicate for seamless loop -->
+        <span class="ticker-label"><span class="hero-badge-dot"></span> En direct</span>
+        <span class="ticker-item"><strong>Mécanicien industriel</strong> Raglan (Glencore) <span class="ticker-salary">$105K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Opérateur d'équipement lourd</strong> Bloom Lake <span class="ticker-salary">$92K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Électricien</strong> Éléonore (Dhilmar) <span class="ticker-salary">$98K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Soudeur CWB</strong> Windfall (Gold Fields) <span class="ticker-salary">$88K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Mineur de fond</strong> Canadian Malartic <span class="ticker-salary">$110K</span></span>
+        <span class="ticker-dot"></span>
+        <span class="ticker-item"><strong>Géologue</strong> Whabouchi (Nemaska) <span class="ticker-salary">$115K</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Pourquoi Fly-in Québec</div>
+        <h2>Toute l'info FIFO, au même endroit</h2>
+        <p>La seule ressource francophone dédiée au travail dans les mines du Nord du Québec.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon blue">&#x1F4E1;</div>
+          <h3>Veille en temps réel</h3>
+          <p>Notre IA scrute en continu Indeed, LinkedIn et les sites corporatifs. Les nouvelles offres apparaissent en quelques heures.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon amber">&#x2B50;</div>
+          <h3>Reviews de camps</h3>
+          <p>Nourriture, chambre, internet, récréation — des reviews vérifiées de travailleurs qui y sont passés. Comme Glassdoor, pour les camps.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon green">&#x1F4B0;</div>
+          <h3>Salaires transparents</h3>
+          <p>Salaires réels par métier, par mine, par rotation. Fini les devinettes — sachez ce que vous valez avant de postuler.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon purple">&#x1F393;</div>
+          <h3>Guides des métiers</h3>
+          <p>DEP, ASP, certifications — tout ce qu'il faut pour chaque métier. Le chemin le plus court vers votre premier fly-in.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon red">&#x1F6E9;</div>
+          <h3>Conditions de transport</h3>
+          <p>Points de départ, durée des vols, fréquence, bagages — les infos pratiques que personne ne centralise.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon teal">&#x1F4CA;</div>
+          <h3>Tracker des projets</h3>
+          <p>Windfall, Whabouchi, Bloom Lake Phase II — suivez les projets en développement et les embauches à venir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPLOYERS -->
+  <section class="employers" id="employeurs">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Employeurs</div>
+        <h2>Les mines qui recrutent en FIFO</h2>
+        <p>Fiches détaillées des conditions de travail, rotations, camps et transport.</p>
+      </div>
+      <div class="employer-grid">
+        <div class="employer-card">
+          <div class="employer-logo">G</div>
+          <h4>Glencore — Raglan</h4>
+          <div class="employer-mineral">Nickel &bull; Nunavik</div>
+          <div class="employer-meta">
+            <span>&#x1F504; 14/14</span>
+            <span>&#x1F6E9; Vol depuis Montréal</span>
+            <span>&#x1F4B0; $90K - $130K</span>
+          </div>
+        </div>
+        <div class="employer-card">
+          <div class="employer-logo">AM</div>
+          <h4>ArcelorMittal</h4>
+          <div class="employer-mineral">Fer &bull; Fermont</div>
+          <div class="employer-meta">
+            <span>&#x1F504; 14/14 ou 21/7</span>
+            <span>&#x1F6E9; Vol depuis Québec/MTL</span>
+            <span>&#x1F4B0; $75K - $120K</span>
+          </div>
+        </div>
+        <div class="employer-card">
+          <div class="employer-logo">AE</div>
+          <h4>Agnico Eagle</h4>
+          <div class="employer-mineral">Or &bull; Abitibi</div>
+          <div class="employer-meta">
+            <span>&#x1F504; 14/14</span>
+            <span>&#x1F6E9; Vol depuis Val-d'Or</span>
+            <span>&#x1F4B0; $85K - $125K</span>
+          </div>
+        </div>
+        <div class="employer-card">
+          <div class="employer-logo">CI</div>
+          <h4>Champion Iron</h4>
+          <div class="employer-mineral">Fer &bull; Fermont</div>
+          <div class="employer-meta">
+            <span>&#x1F504; 14/14</span>
+            <span>&#x1F6E9; Vol depuis MTL/QC</span>
+            <span>&#x1F4B0; $80K - $115K</span>
+          </div>
+        </div>
+        <div class="employer-card">
+          <div class="employer-logo">D</div>
+          <h4>Dhilmar — Éléonore</h4>
+          <div class="employer-mineral">Or &bull; Baie-James</div>
+          <div class="employer-meta">
+            <span>&#x1F504; 14/14</span>
+            <span>&#x1F6E9; Vol depuis MTL</span>
+            <span>&#x1F4B0; $85K - $120K</span>
+          </div>
+        </div>
+        <div class="employer-card">
+          <div class="employer-logo">GF</div>
+          <h4>Gold Fields — Windfall</h4>
+          <div class="employer-mineral">Or &bull; Baie-James</div>
+          <div class="employer-meta">
+            <span>&#x1F504; 14/14</span>
+            <span>&#x1F6E9; En construction</span>
+            <span>&#x1F4B0; $85K - $125K</span>
+          </div>
+        </div>
+        <div class="employer-card">
+          <div class="employer-logo">RT</div>
+          <h4>Rio Tinto — IOC</h4>
+          <div class="employer-mineral">Fer &bull; Labrador City</div>
+          <div class="employer-meta">
+            <span>&#x1F504; 14/14</span>
+            <span>&#x1F6E9; Vol depuis Sept-Îles</span>
+            <span>&#x1F4B0; $80K - $120K</span>
+          </div>
+        </div>
+        <div class="employer-card">
+          <div class="employer-logo">NL</div>
+          <h4>Nemaska — Whabouchi</h4>
+          <div class="employer-mineral">Lithium &bull; Baie-James</div>
+          <div class="employer-meta">
+            <span>&#x1F504; 14/14</span>
+            <span>&#x1F6E9; En développement</span>
+            <span>&#x1F4B0; $80K - $110K</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOBS PREVIEW -->
+  <section class="jobs-preview" id="emplois">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Offres d'emploi</div>
+        <h2>Les dernières offres FIFO</h2>
+        <p>Mises à jour automatiquement toutes les 6 heures depuis Indeed, LinkedIn et les sites corporatifs.</p>
+      </div>
+      <div class="jobs-list">
+        <div class="job-card">
+          <div class="job-left">
+            <div class="job-company-badge">G</div>
+            <div class="job-info">
+              <h4>Mécanicien industriel <span class="job-new">NOUVEAU</span></h4>
+              <div class="job-company">Glencore — Mine Raglan</div>
+              <div class="job-tags">
+                <span class="job-tag rotation">14/14</span>
+                <span class="job-tag location">Nunavik</span>
+                <span class="job-tag">DEP + 3 ans exp.</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-salary">$105 000/an</div>
+            <div class="job-date">Il y a 2 heures</div>
+          </div>
+        </div>
+        <div class="job-card">
+          <div class="job-left">
+            <div class="job-company-badge">CI</div>
+            <div class="job-info">
+              <h4>Opérateur de foreuse <span class="job-new">NOUVEAU</span></h4>
+              <div class="job-company">Champion Iron — Bloom Lake</div>
+              <div class="job-tags">
+                <span class="job-tag rotation">14/14</span>
+                <span class="job-tag location">Fermont</span>
+                <span class="job-tag">DEP extraction</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-salary">$92 000/an</div>
+            <div class="job-date">Il y a 5 heures</div>
+          </div>
+        </div>
+        <div class="job-card">
+          <div class="job-left">
+            <div class="job-company-badge">D</div>
+            <div class="job-info">
+              <h4>Électricien d'entretien</h4>
+              <div class="job-company">Dhilmar — Mine Éléonore</div>
+              <div class="job-tags">
+                <span class="job-tag rotation">14/14</span>
+                <span class="job-tag location">Baie-James</span>
+                <span class="job-tag">Licence C + ASP</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-salary">$98 000/an</div>
+            <div class="job-date">Il y a 8 heures</div>
+          </div>
+        </div>
+        <div class="job-card">
+          <div class="job-left">
+            <div class="job-company-badge">GF</div>
+            <div class="job-info">
+              <h4>Soudeur CWB</h4>
+              <div class="job-company">Gold Fields — Projet Windfall</div>
+              <div class="job-tags">
+                <span class="job-tag rotation">14/14</span>
+                <span class="job-tag location">Baie-James</span>
+                <span class="job-tag">CWB + SMAW/GMAW</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-salary">$88 000/an</div>
+            <div class="job-date">Il y a 12 heures</div>
+          </div>
+        </div>
+        <div class="job-card">
+          <div class="job-left">
+            <div class="job-company-badge">AE</div>
+            <div class="job-info">
+              <h4>Ingénieur géologique</h4>
+              <div class="job-company">Agnico Eagle — Canadian Malartic</div>
+              <div class="job-tags">
+                <span class="job-tag rotation">14/14</span>
+                <span class="job-tag location">Abitibi</span>
+                <span class="job-tag">Bac. + OIQ</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-salary">$115 000/an</div>
+            <div class="job-date">Hier</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <a href="#" class="btn btn-primary" style="background:var(--primary);">
+          Voir les 247 offres
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADES -->
+  <section class="trades" id="metiers">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Métiers en demande</div>
+        <h2>Les métiers qui recrutent le plus</h2>
+        <p>Formations, certifications et salaires pour chaque métier FIFO.</p>
+      </div>
+      <div class="trades-grid">
+        <div class="trade-card">
+          <div class="trade-icon">&#x2699;&#xFE0F;</div>
+          <h4>Mécanicien industriel</h4>
+          <div class="trade-salary">$95K - $120K</div>
+          <div class="trade-demand">Forte demande</div>
+        </div>
+        <div class="trade-card">
+          <div class="trade-icon">&#x1F69C;</div>
+          <h4>Opérateur équipement lourd</h4>
+          <div class="trade-salary">$85K - $110K</div>
+          <div class="trade-demand">Forte demande</div>
+        </div>
+        <div class="trade-card">
+          <div class="trade-icon">&#x26A1;</div>
+          <h4>Électricien</h4>
+          <div class="trade-salary">$90K - $115K</div>
+          <div class="trade-demand">Forte demande</div>
+        </div>
+        <div class="trade-card">
+          <div class="trade-icon">&#x1F525;</div>
+          <h4>Soudeur</h4>
+          <div class="trade-salary">$80K - $105K</div>
+          <div class="trade-demand">Demande modérée</div>
+        </div>
+        <div class="trade-card">
+          <div class="trade-icon">&#x26CF;&#xFE0F;</div>
+          <h4>Mineur de fond</h4>
+          <div class="trade-salary">$95K - $130K</div>
+          <div class="trade-demand">Forte demande</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter" id="newsletter">
+    <div class="container newsletter-inner">
+      <div class="newsletter-text">
+        <h2>Restez branché sur le Nord</h2>
+        <p>Chaque semaine, les nouvelles offres, les actus du secteur et les opportunités à venir. Gratuit, pas de spam.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Merci!';">
+        <input type="email" placeholder="votre@courriel.com" required>
+        <button type="submit">S'inscrire</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Prêt pour l'aventure du Nord?</h2>
+      <p>14 358 postes à combler. Des salaires de $80K à $130K. Et votre prochaine carrière commence ici.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="#emplois" class="btn btn-primary">Voir les offres d'emploi</a>
+        <a href="#metiers" class="btn btn-secondary">Explorer les métiers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#fff" opacity="0.9"/>
+                <path d="M2 17l10 5 10-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+                <path d="M2 12l10 5 10-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+                <path d="M9 6l6 3-6 3" fill="#e8a838"/>
+              </svg>
+            </div>
+            <span>Fly-in <span class="logo-qc">Québec</span></span>
+          </div>
+          <p>Le premier portail francophone dédié au travail Fly-in/Fly-out dans les mines du Nord du Québec.</p>
+          <p style="margin-top:12px;font-size:0.82rem;">Une initiative du Carrefour Jeunesse-Emploi d'Abitibi-Ouest.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explorer</h4>
+          <a href="#">Offres d'emploi</a>
+          <a href="#">Employeurs</a>
+          <a href="#">Métiers</a>
+          <a href="#">Projets miniers</a>
+          <a href="#">Blog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Guides</h4>
+          <a href="#">Débuter en FIFO</a>
+          <a href="#">Formations requises</a>
+          <a href="#">Fiscalité FIFO</a>
+          <a href="#">Vie de camp</a>
+          <a href="#">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <a href="#">Notre mission</a>
+          <a href="#">Le CJEAO</a>
+          <a href="#">Contact</a>
+          <a href="#">Employeurs : publier un poste</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Fly-in Québec. Tous droits réservés.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

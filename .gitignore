@@ -1,0 +1,6 @@
+.firecrawl/
+.gstack/
+.claude/plans/
+node_modules/
+.env
+.env.local
